@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+     [v-cloak]{
+            display: none;
+     }
+</style>
+<body>
+    <div id="app"> 
+   <p> 性：<input type="text" v-model='lastName'></p>
+   <p>名：<input type="text" v-model="fisrtName"></p>
+    <p v-cloak>{{fullName|upper}}</p>
+    <p v-cloak>{{fullName|lowers}}</p>
+    </br>
+    <p v-cloak>{{data|format('yyyy-mm-dd')}}</p>
+    </div>
+  <script src="vue.js"></script>
+  <script>
+      //全局过滤器
+      Vue.filter('upper',function(val){
+           return val.toUpperCase();
+      });
+      var vm=new Vue({
+          el:'#app',
+          data:{
+            lastName:'jack',
+            fisrtName:'song',
+            fullNames:'jack song',
+            data:new Date()
+          },
+          //方法
+          methods: {
+              
+          },
+          //计算属性
+          computed:{
+            fullName(){
+                return this.fisrtName+" "+this.lastName; 
+            }
+          },
+          //自定义指令
+         directives:{
+
+         },
+         //侦听器
+         watch: {
+            lastName:function(val){
+              this.fullNames=val+""+this.fisrtName;
+            },
+            fisrtName:function(val)
+            {
+                this.fullNames=val+""+this.lastName;
+            }
+         },
+         //局部过滤器
+        filters:{
+          lowers:function(val){
+            return val.split('');
+          },
+          format:function(val,arg){
+           if(arg==='yyyy-mm-dd'){
+               return `${val.getFullYear()}-${val.getMonth()+1}-${val.getDate()}`;
+           }
+          }
+        }
+      })
+  </script>
+</body>
+</html>

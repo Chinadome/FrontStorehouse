@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    /*    class dog{
+            constructor({name,age,sex})
+            {
+                this.name=name;
+                this.age=age;
+                this.sex=sex;
+            }
+            dome(){
+            console.log("我是se6新的写法！");
+            }
+            get _age(){
+                return this.age;
+            }
+            set _age(age){
+                this.age=age;
+            }
+            static mode(){
+            console.log(3);
+                        }
+        }
+        let des=new dog(
+            {name:'张三',
+            agr:18,
+            sex:18});
+            des._age=12;
+       console.log(des._age);
+       dog.mode();
+      */
+     class periosn{
+         constructor(name){
+             this.name=name
+         }
+         dog(){
+             console.log(1+1+1+1+1+1+1);
+         }
+     }
+      //子类继承父类
+      class  childrens extends  periosn{
+          constructor(name,age){
+              super(name).dog();
+              this.age=age;
+          }
+         
+      }  
+
+      
+       let ast=new childrens(); 
+       ast.dog();
+    </script>
+</body>
+
+</html>

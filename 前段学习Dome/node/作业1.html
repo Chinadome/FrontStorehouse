@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div">
+        
+    </div>
+     <input type="text" id="input" placeholder="请输入！" >
+     <input type="button" id="button" value="确认">
+    <script>
+        //文本框输入内容，点击留言按钮 根据内容创建一个li 新的内容置顶
+      var  div=document.querySelector("#div");
+      var  input=document.querySelector("#input");
+      var  button=document.querySelector("#button");
+      button.onclick=function()
+      {
+            if(input.value==''){
+             alert('请输入！');
+            }
+            else
+            {
+                var li=document.createElement("li");
+                li.innerHTML=input.value;
+                if(div.childElementCount<4)
+                {
+                div.prepend(li);
+                }else
+                {
+                    div.lastChild.remove();
+                    div.prepend(li);
+                }
+                
+              //  div.innerHTML+='<li>'+input.value+'</li>';
+            }
+      }
+    </script>
+</body>
+</html>

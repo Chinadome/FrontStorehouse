@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0px auto;
+        }
+
+        .all{
+            text-align: center;
+        }
+
+        div.logo {
+            width:70%;
+            height:60px;
+            background-color:#33CCFF;
+        }
+
+        div.copyright {
+            width:70%;
+            height:60px;
+            background-color: #FF99FF;
+        }
+         
+        div.li1{
+            width:100%;
+            height:20%;
+            background:#CCFF66;
+            font-size: 20px;
+            font-family: "宋体";
+            vertical-align:middle;
+        }
+        div.li2{
+            width:100%;
+            height:20%;
+            background:#FF9999;
+            font-size: 20px;
+            font-family: "宋体";
+            vertical-align:middle;
+        }
+        div.li3{
+            width:100%;
+            height:20%;
+            background:#008800;
+            font-size: 20px;
+            font-family: "宋体";
+            vertical-align:middle;
+        }
+        div.li4{
+            width:100%;
+            height:20%;
+            background:#6633FF;
+            font-size: 20px;
+            font-family: "宋体";
+            vertical-align:middle;
+        }
+        div.li5{
+            width:100%;
+            height:20%;
+            background:#333366;
+            font-size: 20px;
+            font-family: "宋体";
+            vertical-align:middle;
+        }
+        div.middle {
+            width:70%;
+            height: 500px;
+        }
+        p{
+          padding-top: 20px;
+        }
+        div.menu {
+            width:35%;
+            height: 500px;
+            background-color: #E4393C;
+            /*菜单左浮动*/
+            float:left;
+        }
+        p1{
+            padding-top:40px;
+        }  
+        div.main {
+            width:65%;
+            height: 500px;
+            background-color: #bad0ef;
+            /*主题右浮动*/
+            float:right;
+            /*左浮动、右浮动都可以*/
+            float:left;
+        }
+        a:link{text-decoration:none; 
+        }
+    </style>
+
+</head>
+<body>
+    <div  id="app" class="all">
+        <my-body></my-body>
+    </div>
+    <script src="../vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+       Vue.component('my-body',{
+          template:`<div>
+            <my-top></my-top>
+            <my-middle></my-middle>
+            <my-copyright></my-copyright>
+            </div>`,
+       })
+       Vue.component('my-top',{
+          template:`<div class="logo">
+            <p>乐乐高管理系统</p>
+            </div>`,
+       })
+       Vue.component('my-middle',{
+          template:`<div class="middle">
+            <div class="menu">
+                <div class='li1'><p class="p1"><router-link :to="{name:'yonghu'}">用户管理</router-link></p></div>
+                <div class='li2'><p class="p1"><router-link :to="{name:'shangpin'}">商品管理</router-link></p></div>
+                <div class='li3'><p class="p1"><router-link :to="{name:'dingdan'}">订单管理</router-link></p></div>
+                <div class='li4'><p class="p1"><router-link :to="{name:'quanxian'}">权限管理</router-link></p></div>
+                <div class='li5'><p class="p1"><router-link :to="{name:'xitong'}">系统设置</router-link></p></div>
+            </div>
+            <div class="main">
+                <router-view></router-view>
+            </div>
+            </div>`,
+       })
+       const  xiangqing={
+          // props:['id','name','age'],
+               template:`<div>
+                <h1>{{$route.params.name}}的详细信息</h1>
+            <table>
+            <tr>
+                <td><span>ID:</span></td>
+                <td>{{$route.params.id}}</td>
+                <td> <span>名字:</span></td>
+                <td>{{$route.params.name}}</td>
+                <td><span>年龄:</span></td>
+                <td>{{$route.params.age}}</td>
+                <td><button @click='goBack'>返回</button></td>
+            </tr>
+            </table>
+            </p>
+        </div>`
+        ,
+        methods: {
+            goBack(){
+                this.$router.go(-1);
+            }
+        },
+            }
+       const yonghu={
+           data:function(){
+           return {
+               array:[
+                   {id:1
+                    ,name:'张三'
+                    ,age:13
+                   },{
+                       id:2
+                       ,name:'李四'
+                    ,age:26
+                   },{
+                       id:3,
+                       name:'王五'
+                       ,age:26
+                   }
+               ]
+           }
+           },
+           
+        template:`
+        <div>
+            <table>
+            <tr v-for="(value,index)  in array">
+                <td><span>ID:</span></td>
+                <td>{{value.id}}</td>
+                <td> <span>名字:</span></td>
+                <td>{{value.name}}</td>
+                <td><span>年龄:</span></td>
+                <td>{{value.age}}</td>
+                <td><button @click="xiangqing(value)">详情</button></td>
+            </tr>
+            </table>
+            </p>
+        </div>
+        `,
+        methods: {
+            xiangqing(value){
+                this.$router.push({
+                       name:'xiangqing',
+                       params:{
+                        id:value.id,
+                        name:value.name,
+                        age:value.age
+                        }
+                     });
+            }
+        },
+       }
+       const shangpin={
+        template:'<h1>商品管理</h1>'
+       }
+       const dingdan={
+        template:'<h1>订单管理</h1>'
+       }
+       const quanxian={
+        template:'<h1>权限管理</h1>'
+       }
+       const xitong={
+        template:'<h1>系统管理</h1>'
+       }
+       const moren={
+        template:'<h1>无内容</h1>'
+       }
+       Vue.component('my-copyright',{
+          template:`<div class="copyright">
+            <p>三毛公司所有</p>
+           </div>`,
+       })
+       const router = new VueRouter({
+            routes:[
+                {
+                    path:'/',
+                    redirect:'/moren'
+                },
+                {
+                    path:'/moren',
+                    component:moren
+                },
+                { 
+                    name:'yonghu',
+                    path:'/yonghu',
+                    component:yonghu
+                },
+                { 
+                    name:'shangpin',
+                    path:'/shangpin',
+                    component:shangpin
+                },
+                { 
+                    name:'dingdan',
+                    path:'/dingdan',
+                    component:dingdan
+                },
+                { 
+                    name:'quanxian',
+                    path:'/quanxian',
+                    component:quanxian
+                }
+                ,
+                { 
+                    name:'xitong',
+                    path:'/xitong',
+                    component:xitong
+                },{
+                    name:'xiangqing',
+                    path:'/yonghu/xiangqing',
+                    component:xiangqing
+                }
+            ]
+        })
+        var vm=new Vue({
+            el:'#app',
+            router
+        }) 
+    </script>
+</body>
+</html>

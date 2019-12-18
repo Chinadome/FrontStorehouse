@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+    </style>
+</head>
+<body> 
+    <div id="app" v-cloak>
+      <p v-text="msg" v-on:click="set"></p>
+      <p v-html="msg2" @click="gdst(1222223,$event)"></p>
+      <p v-pre >{{msg}}</p>
+      <p v-once>{{msg}}</p>
+      <div @click="fn2" >
+        父级
+        <div @click.stop="fn1">子集</div>
+      </div>
+      <div :class={box:true}>我是一个v-bind class</div>
+      <div :style="{width:200+'px',height:200+'px',background:'red'}">我是一个v-bind style</div>
+      <input type="text" v-model='msg'   @keyup.abc="fn4">
+      <input type="text" :value="msg1">
+      <a  href="www.baidu.com" @click.prevent="fn3">ssssssss</a>
+      <a  v-bind:href="url">百度</a>
+      <a  v-bind:href="url" ></a>
+      <p v-for="(vaule,item)  in arrays">序号：{{item}}+************+值：{{vaule}}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        Vue.config.keyCodes.abc=65;//给按键起别名
+        var vue=new Vue({
+          el:"#app",
+          data:{
+              msg:"123",
+              msg1:"2345",
+              msg2:"<span>1233</span>",
+              url:"https://www.baidu.com",
+              arrays:["张三","李四","王五"]
+          },
+          methods: {
+            set:function(e){
+                console.log(e);
+            },
+            gdst(abj,e){
+                console.log(e.target.nodeName);
+            },
+            fn1(){
+                console.log("父级");
+            },
+            fn2(){
+                console.log("子集");
+            },
+            fn3(){
+                console.log("阻止默认行为！");
+            },
+            fn4(){
+                console.log("出发按键！");
+            }
+          },
+        });
+    </script>
+</body>
+</html>

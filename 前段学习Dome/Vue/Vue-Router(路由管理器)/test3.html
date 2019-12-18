@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+           <!--路由连接组件-->
+           <!--通过点击链接实现导航 声明式导航-->>
+           <router-link to='/xinwen/1'>新闻1</router-link>  
+           <router-link :to="{name:'xinwen',params:{id:100}}">新闻2</router-link>  
+           <router-link to='/xinwen/3'>新闻3</router-link> 
+           <router-link :to="{name:'youxi',params:{id:100}}">游戏</router-link> 
+           <!--路由占位符-->
+           <router-view></router-view> 
+    </div>
+    <script src="../vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+        const xinwen={
+            //$route.params 获取路由参数
+            props:['id','name','age'],//接受路由参数
+            //template:`<h1>新闻{{$route.params.id}}组件</h1>`
+             //template:`<h1>新闻{{id}}组件</h1>`//用props传参
+             template:`
+             <div>
+             <h1>新闻{{id}}-->{{name}}--{{age}}</h1>
+             <button @click='goBack'>返回</button>
+             </div>
+             `,
+             methods:{
+                goBack(){
+                    this.$router.go(-1);
+                }
+             }
+        }
+        const youxi={
+            template:`<div>
+                <h1>游戏</h1>
+                <button @click='getXinwen'>跳转到新闻1</button>
+                </div>
+            `,
+            methods:{
+                getXinwen(){
+                    //this.$router.push('/xinwen/1');
+                    //  this.$router.push({
+                    //     name:'xinwen',
+                    //     query:{
+                    //         name:'ks'
+                    //     }
+                    // });//根据urlname 来匹配
+                    // this.$router.push({
+                    //     path:'/xinwen/1'
+                    // });//传对象的形式
+                      this.$router.push({
+                       name:'xinwen',
+                        params:{
+                        id:'1'
+                        }
+                     });
+                }
+            }
+        }
+        const router = new VueRouter({
+            routes:[
+               {
+                    path:'/',
+                    redirect:'/xinwen/1'//重定向
+                }
+                ,{
+                    name:'xinwen',
+                    //动态路由参数
+                    path:'/xinwen/:id',
+                    component:xinwen,
+                    //props:true// props 为true 此时route.params作为组件的属性
+                    // props:{
+                    //       name:'zs',
+                    //       age:45
+                    // }
+                    props:route=>({
+                        name:'zs',
+                        age:45,
+                        id:route.params.id
+                    })
+                },{
+                        name:'youxi',
+                        path:'/youxi/:id',
+                        component:youxi,
+                }
+            ]
+        })
+        let vm=new Vue({
+            el:'#app',
+            //把路由对象挂载到实例中
+            router//router：router
+        })
+    </script>
+</body>
+</html>

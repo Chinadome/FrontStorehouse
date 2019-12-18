@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <script src="./axios-master/axios-master/dist/axios.js"></script>
+    <script>
+        //优化线程操作
+        //async 用于函数上 async返回的是一个promise实例
+     axios.defaults.baseURL='http://localhost:3000/';//设置基准地址
+    // axios.defaults.headers['mytoken']='china';//设置请求头
+     //请求拦截器---请求发出之前设置一些信息
+     axios.interceptors.request.use(function(confing){
+            //console.log(confing);
+            confing.headers.mytoken='hi';
+            return confing;
+        },function(err){
+            //console.log(err);
+        })
+        //响应拦截器  --获取数据之前,做一些处理
+        axios.interceptors.response.use(function(res){
+            return res;
+             
+        },function(err){
+              //console.log(err);
+        })
+     axios.get('test').then(function(data){
+         console.log(data.data);
+     });
+       async   function getDate(){
+       let wait=await axios.get('test');
+       console.log(wait.data); 0
+      }
+      getDate();
+      //返回json 数据
+        async function Test(){
+            let test=await axios.get('awaits',{
+                  params:{id:'1',
+                    name:'张三'
+                  } 
+            })
+            console.log(test.data);
+        }
+        Test();
+        
+    </script>
+</body>
+</html>

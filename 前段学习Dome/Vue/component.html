@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <zsan-fm></zsan-fm>
+        <my-components></my-components>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //全局自定义组件
+        Vue.component("my-component",{
+            data:function(){
+                return{
+                msg:'mag'
+                }
+            },
+            template:`
+            <div><p>{{msg}}</p></div>
+            `
+        });
+        Vue.component("my-components",{
+            data:function(){
+                return{
+                msg:'mag'
+                }
+            },
+            template:`
+            <div>
+                <p>{{msg}}</p>
+                <my-component></my-component>
+            </div>
+            `
+        });
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                msg:'123'
+            },
+            mothods:{
+
+            },
+            //监听器
+            match:{
+
+            },
+            //计算属性
+            computend:{
+
+            },
+            //局部自定义指令
+            directives:{
+
+            },
+            //局部自定义拦截器
+            filters:{
+
+            },
+            //局部组件
+            components:{
+              'zsan-fm':{
+                  data:function(){
+                   return {
+                       sex:18
+                   }
+                  },
+                  template:`<p>789</p>
+                  `
+                }
+            }
+        })
+    </script>
+</body>
+</html>

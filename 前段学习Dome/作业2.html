@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="table"></div>
+    <span>输入行</span>：<input type="text" id="thats" placeholder="请输入行！" onclick=""/>
+    <span>输入列</span>：<input type="text" id="column" placeholder="请输入列！"/>
+    <input type="button" id="button" value="确认"/>
+   <script type="text/javascript" src="../作业/gy.js"></script>
+    <script>
+        //动态创建表格，文本框输入行，文本框，按钮创建表格 在表格每一行最后一个添加加一个td 表示删除 ，点击删除可以删除当前所在行，且每一个单元格颜色是随机的
+    var thats=$("#thats");
+    var column=$("#column");
+    var button=$("#button");
+    var table=$("#table");
+     button.onclick=function(){
+         if(thats.value!=''&&column.value!='')
+         {
+            if(!isNaN(thats.value)&&!isNaN(column.value)){
+            var table1=document.createElement("table");
+            table1.border=1;
+            var cache=document.createDocumentFragment();
+             for(var i=0;i<thats.value;i++)
+             {
+               var tr=document.createElement("tr");
+               for(var j=0;j<column.value;j++)
+                {
+                    var td=document.createElement("td");
+                    td.width='120px';
+                    td.height='60px';
+                    tr.appendChild(td);
+                }
+                if(i==(thats.value-1))
+                {
+                    var td1=document.createElement("td");
+                    td1.width='120px';
+                    td1.height='60px';
+                    td1.onclick=function(){
+                    }
+                    tr.append(td1);
+                }
+                cache.appendChild(tr);
+            }
+            table1.appendChild(cache);
+            table.innerHTML="";
+            table.appendChild(table1);
+          }else
+         {
+              alert('请输入数字！');
+         }
+
+         }else 
+         {
+             alert('请输入行或列！');
+         }
+     }
+    /*   var   alert=rand(48,70);
+      function yzm() {
+		var str = "";
+		for(var i=0; i<6; i++) {
+			var code = rand(48,70);
+			if(code>=58&&code<=64 || code>=91&&code<=96) {
+				i--; // 重新开始
+			} else {
+				str += String.fromCharCode(code);
+			}
+		}
+		return str; 
+	}*/
+
+    </script>
+</body>
+</html>

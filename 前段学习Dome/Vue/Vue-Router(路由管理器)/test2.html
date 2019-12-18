@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+           <!--路由连接组件-->
+           <router-link to='/home'>首页</router-link>  
+           <router-link to='/caijing'>财经</router-link>  
+           <router-link to='/tiyu'>体育</router-link>  
+           <router-link to='/xinwen'>新闻</router-link>  
+           <router-link to='/youxi'>游戏</router-link> 
+           <!--路由占位符-->
+           <router-view></router-view> 
+    </div>
+    <script src="../vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+        const home={
+            template:`<h1>首页</h1>`
+        }
+        const caijing={
+            template:`
+            <div> 
+            <h1>财经</h1>
+            <p>---------------------------------</p>
+            <router-link to='/caijing/chaogu'>炒股</router-link>  
+            <router-link to='/caijing/jingrong'>金融</router-link>  
+            <router-view></router-view> 
+            </div>
+            `
+        }
+        const tiyu={
+            template:
+            `
+            <div>
+            <h1>体育</h1>
+            <p>---------------------------------</p>
+            <router-link to='/tiyu/lanqiu'>篮球</router-link>  
+            <router-link to='/tiyu/zuqiu'>足球</router-link>  
+            <router-view></router-view> 
+            </div>
+            `
+        }
+        const youxi={
+            template:`<h1>游戏</h1>`
+        }
+        const xinwen={
+            template:`<h1>新闻</h1>`
+        }
+        const chaogu={
+            template:`<h2>炒股信息</h2>`
+        }
+        const jingrong={
+            template:`<h2>金融信息</h2>`
+        }
+        const lanqiu={
+            template:`<h2>篮球运行</h2>`
+        }
+        const zuqiu={
+            template:`<h2>足球运动</h2>`
+        }
+        const router = new VueRouter({
+            routes:[
+               {
+                    path:'/',
+                    redirect:'/home'//重定向
+                },
+                {
+                    path:'/home',
+                    component:home
+                },{
+                    path:'/caijing',
+                    component:caijing,
+                    children:[
+                        {
+                            path:'/caijing/chaogu',
+                            component:chaogu
+                        },{
+                            path:'/caijing/jingrong',
+                            component:jingrong
+                        }
+                    ]
+                }
+                ,{
+                    path:'/tiyu',
+                    component:tiyu,
+                    children:[
+                        {
+                            path:'/tiyu/lanqiu',
+                            component:lanqiu
+                        },{
+                            path:'/tiyu/zuqiu',
+                            component:zuqiu
+                        }
+                    ]
+                }
+                ,{
+                    path:'/youxi',
+                    component:youxi
+                }
+                ,{
+                    path:'/xinwen',
+                    component:xinwen
+                }
+            ]
+        })
+        let vm=new Vue({
+            el:'#app',
+            //把路由对象挂载到实例中
+            router//router：router
+        })
+    </script>
+</body>
+</html>

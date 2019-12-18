@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 默认get请求
+        fetch('http://localhost:3000/test').then(function(data) {
+            // data.text() 返回也是一个promise实例
+            return data.text();
+        }).then(function(data) {
+            console.log("fetchq的get请求："+data); // 真正的数据
+        });
+
+          //fetch请求参数
+          // 传统url地址
+        fetch('http://localhost:3000/adata?id=1234',{
+            method: 'get'
+        }).then(function(data) {
+            // data.text() 返回也是一个promise实例
+            return data.text();
+        }).then(function(data) {
+            console.log("fetchq的get(带参数)请求："+data); // 真正的数据
+        });
+        //Restful形式的url
+        fetch('http://localhost:3000/restful/999',{
+            method: 'get'
+        }).then(function(data) {
+            // data.text() 返回也是一个promise实例
+            return data.text();
+        }).then(function(data) {
+            console.log("Restful形式的fetchq的get(带参数)请求："+data); // 真正的数据
+        });
+          // delete请求参数基本类似与get请求参数
+        fetch('http://localhost:3000/delete?id=1234',{
+            method: 'delete'
+        }).then(function(data) {
+            // data.text() 返回也是一个promise实例
+            return data.text();
+        }).then(function(data) {
+            console.log('fetchq的delete(带参数)请求：'+data); // 真正的数据
+        });
+        //post 请求
+        fetch('http://localhost:3000/fethch_post',{
+            method:'post',
+            body:'name=zs&pwd=123456',
+            headers:{
+                'Content-type': 'application/x-www-form-urlencoded'
+            }//必须加请求头
+        }).then((data)=>{
+            return data.text(data);
+        }).then((data)=>{
+            console.log(data);
+        })
+
+        fetch('http://localhost:3000/fdata/135',{
+            method: 'post',
+            body: JSON.stringify({
+                name: '张杰',
+                age: 35
+            }),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }).then(function(data) {
+            // data.text() 返回也是一个promise实例
+            return data.text();
+        }).then(function(data) {
+            console.log(data); // 真正的数据
+        });
+        // put请求参数与post基本类似
+        fetch('http://localhost:3000/fdata/111',{
+            method: 'put',
+            body: JSON.stringify({
+                uname: '张杰',
+                age: 38
+            }),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }).then(function(data) {
+            // data.text() 返回也是一个promise实例
+            return data.text();
+        }).then(function(data) {
+            console.log(data); // 真正的数据
+        });
+        
+
+        fetch('http://localhost:3000/fdatas/135',{
+            method: 'put',
+            body: 'name=zs&pwd=39',
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data) {
+            // data.text() 返回也是一个promise实例
+            //return data.text();
+            return data.json();
+        }).then(function(data) {
+            console.log(data,typeof data); // 真正的数据
+            //data = JSON.parse(data);
+            console.log(data);
+            
+        });
+        
+    </script>
+</body>
+</html>

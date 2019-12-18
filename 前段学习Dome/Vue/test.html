@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue购物车</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div class="container" id="app" >
+        <com-type></com-type>
+    </div>
+    <script>
+        var item=new Vue();
+        Vue.component('com-type',{
+            data:function(){
+                return {
+                   array:[{
+                    name:'小米',
+                    price:200,
+                    amount:2,
+                   },{
+                    name:'华为',
+                    price:300,
+                    amount:1,
+                   },{
+                    name:'voio',
+                    price:400,
+                    amount:1,
+                   },{
+                    name:'opop',
+                    price:500,
+                    amount:1,  
+                   }],
+                   sum:0
+                }
+            }, methods:{
+                Summation:function(val,index){
+                   this.array[index].amount++;
+                },
+                Relieve:function(val,index){
+                    if(this.array[index].amount>1){
+                    this.array[index].amount--;
+                    }else
+                    {
+                       this.array.splice(index,1);
+                    }
+                },
+                Remove:function(index){
+                    this.array.splice(index,1);
+                }
+            },
+            computed: {
+                SumType(){
+                  var  total=0;
+                    for(let i=0;i<this.array.length;i++)
+                    {
+                        total+=this.array[i].amount*this.array[i].price;
+                    }
+                  return  this.sum=total;
+                }
+            },
+            template:`<div class="panel panel-default" >
+            <div class="panel-heading" style="background-color:cyan;text-align:center">我的商品</div>
+            <table class="table table-bordered text-center">
+                    <tr style="text-align:center"><td>品牌</td><td>价格(每个)</td><td>数量</td><td>操作</td></tr>
+                <tr v-for="(value,index) in array" style="text-align:center">
+                    <td>{{value.name}}</td>
+                    <td>{{value.price}}</td>
+                    <td> 
+                        <div class="input-group">
+                                <span class="input-group-addon" @click='Relieve(value.amount,index)'>-</span>
+                                <input type="text"  class="form-control" v-model='value.amount'/>
+                                <span class="input-group-addon" @click='Summation(value.amount,index)'>+</span>
+                        </div>
+                    </td>
+                    <td><button class="btn btn-danger" data-toggle="modal" data-target="#layer" @click='Remove(index)'>删除</button></td>
+                </tr>
+                <tr style="text-align:right">
+                    <td colspan="4" style="background-color: yellow;">总购买价格:{{SumType}}元</td>
+                  </tr>
+            </table>
+        </div>`
+        }
+        );
+     var vue_s = new Vue({
+            el:"#app",
+            data:{
+            },
+            methods:{
+            }
+        });
+    </script>
+</body>
+</html>

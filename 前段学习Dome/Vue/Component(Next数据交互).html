@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <comp-type>
+            <template v-slot:footer>
+            <p>我是第一处插槽</p>
+            <p >我是第二处插槽</p>
+        </template>  
+        </comp-type>
+        <comp-type1></comp-type1>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var Sert=new Vue();
+        Vue.component('comp-type',{
+            data:function(){
+                return {
+                  count:0
+                }
+            },
+            template:`
+            <div>
+            <p>{{count}}</p>
+            <slot name="slot1"></slot>
+            <button @click="countType" value='提交'>计算type1的值</button>
+            <slot name='footer'></slot>
+           
+            </div>`,
+            methods:{
+                countType(){
+                    Sert.$emit('countType1',2);
+                }
+            },
+             mounted() {
+                 //监听
+                  Sert.$on('countType2',(val)=>{
+                  this.count+=val;
+                 });
+            },
+        });
+        Vue.component('comp-type1',{
+            data:function(){
+                return {
+                  count1:0
+                }
+            },
+            template:`<div><p>{{count1}}</p><button @click="countType2" value='提交'>计算type2的值</button></div>`,
+            methods:{
+                countType2(){
+                    Sert.$emit('countType2',1);
+                }
+            },
+            mounted() {
+             Sert.$on('countType1',(val)=>{
+                 this.count1+=val;
+             });
+            },
+        });
+        var vm=new Vue({
+            el:"#app",
+            data:{
+
+            },
+            directives:{
+
+            },methods: {
+                
+            },
+            computed:{
+
+            },watch: {
+                
+            },
+            filters:{
+
+            },
+            components:{
+
+            }
+        })
+    </script>
+   
+</body>
+</html>

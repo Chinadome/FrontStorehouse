@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            .active {
+                color: red;
+                font-size: 20px;
+            }
+        </style>
+</head>
+<body>
+    <div id="app">
+        <comp-type>
+            <template #color="setea">
+                <p v-if="setea.car=='阿修罗'" class="active">{{setea.car}}</p>
+                <p v-else>{{setea.car}}</p>
+            </template>
+        </comp-type>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var Sert=new Vue();
+        Vue.component('comp-type',{
+            data:function(){
+                return {
+                  count:0,
+                  text:['狂战士','阿修罗','剑魂']
+                }
+            },
+            template:`
+            <div>
+            <ul><li :key=value v-for="(value,index) in text">
+            <slot name='color' :car='value'>{{value}}</slot>
+            </li>
+            </ul>
+            </div>`,
+        });
+        var vm=new Vue({
+            el:"#app",
+            data:{
+
+            },
+            directives:{
+
+            },methods: {
+                
+            },
+            computed:{
+
+            },watch: {
+                
+            },
+            filters:{
+
+            },
+            components:{
+
+            }
+        })
+    </script>
+   
+</body>
+</html>

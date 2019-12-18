@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--父组件监听子组件的事件-->>
+        <dir-name @emit-content='typeage' @emit-content='typeage'  :msg='msg' :titel='titel' :fifter='fifter' :age='age'></dir-name>
+       <div>********************************************************</div>
+        <dir-name2 @emit-content='typeage' @emit-content2='typeage2'  :msg='msg' :titel='titel' :fifter='fifter' :age='age'></dir-name2>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        /*
+        单向数据流
+        */
+        Vue.component("dir-name",{
+               props:['age','titel','fifter','msg'],
+                data:function(){
+                    return {
+                        msg2:'二级组件',
+                    }
+                },
+                template:`<div>
+                    <p>{{age}}</p>
+                    <p>{{msg2}}</p>
+                    <p>{{titel}}</p>
+                    <p><ul><li v-for="(value,index)  in fifter">{{value}}</li></ul></p>
+                        <button value='提交' @click="fifter.push('咖啡')">提交</button>
+                        <button value='提交' @click="setCompet">提交</button>
+                        {{setCompets}}
+                    </div>`,
+                    computed:{
+                        setCompets(){
+                            return  this.age
+                        }
+                    },
+                    methods:{
+                        setCompet(){
+                            //子组件通过自定义事件向父组件传递事件
+                            return  this.$emit('emit-content',20);//自定义事件
+                        },
+                    }
+        });
+        Vue.component("dir-name2",{
+               props:['age','titel','fifter','msg'],
+                data:function(){
+                    return {
+                        msg2:'二级组件',
+                    }
+                },
+                template:`<div>
+                    <p>{{age}}</p>
+                    <p>{{msg2}}</p>
+                    <p>{{titel}}</p>
+                    <p><ul><li v-for="(value,index)  in fifter">{{value}}</li></ul></p>
+                        <button value='提交' @click="fifter.push('咖啡')">提交</button>
+                        <button value='提交' @click="setCompet">提交</button>
+                        {{setCompets}}
+                    </div>`,
+                    computed:{
+                        setCompets(){
+                            return  this.age
+                        }
+                    },
+                    methods:{
+                        setCompet(){
+                            //子组件通过自定义事件向父组件传递事件
+                            return  this.$emit('emit-content2',20);//自定义事件
+                        },
+                    }
+        })
+        var vm=new Vue({
+            el:'#app',
+            data:{
+              msg:'根组件',
+              titel:'你好!',
+              age: 12, 
+              fifter:['苹果','香梨','西瓜','哈密瓜','香蕉','橘子']
+            },
+            methods:{
+              typeage(ste){
+                this.age=this.age+ste;
+              },
+              typeage2($event){
+              console.log("哈哈哈哈"+(this.age+$event));
+              }
+            },
+            directives:{
+
+            },
+            computed:{
+            },
+            match:{
+
+            },
+            filters:{
+
+            }
+        })
+    </script>
+</body>
+</html>

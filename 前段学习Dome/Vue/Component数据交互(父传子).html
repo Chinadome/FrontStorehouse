@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <dir-name :age='msg' :titel='titel' :fifter='fifter'></dir-name>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        Vue.component("dir-name",{
+               props:['age','titel','fifter'],
+                data:function(){
+                    return {
+                        msg2:'二级组件'
+                    }
+                },
+                template:`<div>
+                    <p>{{age}}</p>
+                    <p>{{msg2}}</p>
+                    <p>{{titel}}</p>
+                    <p v-for="(value,index)  in fifter">{{value}}<p>
+                    </div>`
+        })
+        var vm=new Vue({
+            el:'#app',
+            data:{
+              msg:'根组件',
+              titel:'你好!',
+              fifter:['苹果','香梨','西瓜','哈密瓜','香蕉','橘子']
+            },
+            methods:{
+
+            },
+            directives:{
+
+            },
+            computed:{
+
+            },
+            match:{
+
+            },
+            filters:{
+
+            }
+        })
+    </script>
+</body>
+</html>

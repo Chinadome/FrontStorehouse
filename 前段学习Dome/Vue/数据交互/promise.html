@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script>
+     /* let promise=new Promise(function(resolve,reject){ 
+          setTimeout(()=>{
+            resolve("测试！");
+          },100);
+      
+     });
+       promise.then((data)=>{
+    console.log(data);
+     },(err)=>{
+    console.log('err:'+err);
+    })
+    */
+   //解决链式调用
+   
+    function queryDate(url)
+    {
+        return new Promise(function(relsove,rejiect){
+            /*
+            $.ajax({
+             url,
+             success:function(data){
+                relsove(data);
+             },
+             error:function(data){
+                rejiect(data);
+             }
+            });*/
+             //原生js请求接口
+         var requerst=new XMLHttpRequest();
+        requerst.onreadystatechange=function(){
+            if (requerst.readyState != 4) return;
+                    if (requerst.readyState == 4 && requerst.status == 200) {
+                        relsove(requerst.responseText);
+                    } else {
+                        reject('服务器异常');
+                    }
+        }
+        requerst.open('get',url);
+        requerst.send(null);
+        })
+       
+    }
+    
+    queryDate('http://localhost:3000/test').then(function(data) {
+            console.log(data); 
+            return queryDate('http://localhost:3000/test2');     
+       }).then(function(data) {
+           console.log(data);
+           return  queryDate('http://localhost:3000/test3');  
+       }).then(function(data) {
+           console.log(data);
+       })
+
+     
+       
+    </script>
+</body>
+</html>
