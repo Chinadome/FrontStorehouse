@@ -1,3 +1,3 @@
-modules.exprots={
+module.exports={
     mode:'development'
 }

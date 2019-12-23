@@ -1,5 +1,5 @@
 {
-  "name": "Webpack-name",
+  "name": "webpackes",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "webpack-cli": "^3.3.10"
   },
   "scripts": {
-     "test": "echo \"Error: no test specified\" && exit 1"
+     "dev":"webpack"
   },
   "keywords": [],
   "author": "",
