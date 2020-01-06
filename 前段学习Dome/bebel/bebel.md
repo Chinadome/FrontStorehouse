@@ -7,7 +7,7 @@ npm install --save @babel/polyfill
       "@babel/env",
       {
         targets: {
-          edge: "17",
+          edge: "17",npx 
           firefox: "60",
           chrome: "67",
           safari: "11.1",

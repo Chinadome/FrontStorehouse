@@ -1,3 +1,11 @@
 li{
     text-decoration:underline;
 }
+::placeholder {
+    color: yellow;
+}
+.box{
+    width: 800px;
+    height:400px;
+    background:url(../images/index.png) ;
+}
